@@ -1,0 +1,38 @@
+{
+  "name":"planetadeleste/omnipay-maxipago",
+  "description":"MaxiPago payment gateway driver for the Omnipay 2.x payment processing library",
+  "type":"library",
+  "minimum-stability":"dev",
+  "license":"MIT",
+  "keywords":[
+    "maxipago",
+    "gateway",
+    "merchant",
+    "omnipay",
+    "pay",
+    "payment"
+  ],
+  "homepage":"https://github.com/planetadeleste/omnipay-maxipago",
+  "authors":[
+    {
+      "name":"Alvaro Cánepa",
+      "email":"bfpdevel@gmail.com",
+      "homepage":"http://www.planetadeleste.com/"
+    }
+  ],
+  "require":{
+    "php":">=5.4",
+    "omnipay/common":"~2.3",
+    "ext-curl":"*",
+    "ext-simplexml":"*",
+    "spatie/array-to-xml": "2.11.0"
+  },
+  "require-dev":{
+    "omnipay/tests":"~2.0"
+  },
+  "autoload":{
+    "psr-4":{
+      "Omnipay\\MaxiPago\\":"src/"
+    }
+  }
+}

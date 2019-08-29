@@ -1,0 +1,21 @@
+<?php
+
+
+namespace Omnipay\MaxiPago\Message;
+
+
+use Omnipay\Common\Message\AbstractResponse;
+
+class Response extends AbstractResponse
+{
+
+    /**
+     * Is the response successful?
+     *
+     * @return boolean
+     */
+    public function isSuccessful()
+    {
+        return !isset($this->data['error']) && !isset($this->data['errors']);
+    }
+}
