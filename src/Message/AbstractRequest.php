@@ -10,9 +10,6 @@ use Spatie\ArrayToXml\ArrayToXml;
  * Class AbstractRequest
  *
  * @package Omnipay\MaxiPago\Message
- *
- * @method string getMerchantId()
- * @method string getMerchantKey()
  */
 abstract class AbstractRequest extends BaseAbstractRequest
 {
@@ -31,6 +28,42 @@ abstract class AbstractRequest extends BaseAbstractRequest
     protected $testEndpoint = 'https://testapi.maxipago.net';
 
     protected $apiVersion = '3.1.1.15';
+
+    /**
+     * Unique ID for each merchant
+     *
+     * @param string $merchantId
+     */
+    public function setMerchantId($merchantId)
+    {
+        $this->setParameter('merchantId', $merchantId);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMerchantId()
+    {
+        return $this->getParameter('merchantId');
+    }
+
+    /**
+     * Key associated with the Merchant ID
+     *
+     * @param string $merchantKey
+     */
+    public function setMerchantKey($merchantKey)
+    {
+        $this->setParameter('merchantKey', $merchantKey);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMerchantKey()
+    {
+        return $this->getParameter('merchantKey');
+    }
 
     /**
      * @param mixed $data
@@ -58,7 +91,15 @@ abstract class AbstractRequest extends BaseAbstractRequest
             ->post($this->getEndpoint(), $headers, $xml)
             ->send();
 
-        return $this->createResponse($httpResponse->json());
+        $json = json_encode($httpResponse->xml());
+        $response = json_decode($json, true);
+        $response = array_map(function($val){
+            return empty($val) && !is_numeric($val) ? null : $val;
+        }, $response);
+
+        debug($response);
+
+        return $this->createResponse($response);
     }
 
     /**

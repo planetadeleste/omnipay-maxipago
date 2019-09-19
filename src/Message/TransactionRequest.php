@@ -6,6 +6,23 @@ namespace Omnipay\MaxiPago\Message;
 
 class TransactionRequest extends AbstractRequest
 {
+    // CREDIT CARD PROCESSORS
+    const PEOCESSOR_TEST_SIMULATOR = 1;
+    const PEOCESSOR_REDE = 2;
+    const PEOCESSOR_GETNET = 3;
+    const PEOCESSOR_CIELO = 4;
+    const PEOCESSOR_TEF = 5;
+    const PEOCESSOR_ELAVON = 6;
+    const PEOCESSOR_CHASE_PAYMENTECH = 8;
+
+    // BOLETO PROCESSORS
+    const PROCESSOR_ITAU = 11;
+    const PROCESSOR_BRADESCO = 12; // Used for test boleto
+    const PROCESSOR_BANCO_DO_BRASIL = 13;
+    const PROCESSOR_HSBC = 14;
+    const PROCESSOR_SANTANDER = 15;
+    const PROCESSOR_CAIXA = 16;
+
 
     /**
      * Get the raw data array for this message. The format of this varies from gateway to
@@ -22,7 +39,7 @@ class TransactionRequest extends AbstractRequest
     }
 
     /**
-     * Merchant reference number for this transaction
+     * Order ID in Store
      *
      * @param string $referenceNum This field accepts alphanumeric values only and must be unique
      */
@@ -140,7 +157,7 @@ class TransactionRequest extends AbstractRequest
     public function getChargeInterest()
     {
         $param = $this->getParameter('chargeInterest');
-        if(!strlen($param) || !in_array($param, ['Y', 'N', 'y', 'n'])) {
+        if (!strlen($param) || !in_array($param, ['Y', 'N', 'y', 'n'])) {
             $param = 'N';
         }
 
@@ -212,51 +229,51 @@ class TransactionRequest extends AbstractRequest
     }
 
     /**
-     * @param mixed $boletoNumber
+     * @param mixed $number
      */
-    public function setBoletoNumber($boletoNumber)
+    public function setNumber($number)
     {
-        $this->setParameter('boletoNumber', $boletoNumber);
+        $this->setParameter('number', $number);
     }
 
     /**
      * @return string
      */
-    public function getBoletoNumber()
+    public function getNumber()
     {
-        return $this->getParameter('boletoNumber');
+        return $this->getParameter('number');
     }
 
     /**
-     * @param mixed $boletoExpirationDate
+     * @param mixed $expirationDate
      */
-    public function setBoletoExpirationDate($boletoExpirationDate)
+    public function setExpirationDate($expirationDate)
     {
-        $this->setParameter('boletoExpirationDate', $boletoExpirationDate);
-    }
-
-    /**
-     * @return string
-     */
-    public function getBoletoExpirationDate()
-    {
-        return $this->getParameter('boletoExpirationDate');
-    }
-
-    /**
-     * @param mixed $boletoInstructions
-     */
-    public function setBoletoInstructions($boletoInstructions)
-    {
-        $this->setParameter('boletoInstructions', $boletoInstructions);
+        $this->setParameter('expirationDate', $expirationDate);
     }
 
     /**
      * @return string
      */
-    public function getBoletoInstructions()
+    public function getExpirationDate()
     {
-        return $this->getParameter('boletoInstructions');
+        return $this->getParameter('expirationDate');
+    }
+
+    /**
+     * @param mixed $instructions
+     */
+    public function setInstructions($instructions)
+    {
+        $this->setParameter('instructions', $instructions);
+    }
+
+    /**
+     * @return string
+     */
+    public function getInstructions()
+    {
+        return $this->getParameter('instructions');
     }
 
     /**
@@ -276,6 +293,8 @@ class TransactionRequest extends AbstractRequest
     }
 
     /**
+     * Buyer CPF
+     *
      * @param mixed $customerIdExt
      */
     public function setCustomerIdExt($customerIdExt)
@@ -331,11 +350,11 @@ class TransactionRequest extends AbstractRequest
             ];
         }
 
-        if($this->getSoftDescriptor()) {
+        if ($this->getSoftDescriptor()) {
             $data['softDescriptor'] = $this->getSoftDescriptor();
         }
 
-        if($this->getIataFee()) {
+        if ($this->getIataFee()) {
             $data['iataFee'] = $this->getIataFee();
         }
 

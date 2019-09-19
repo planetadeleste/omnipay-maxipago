@@ -20,9 +20,10 @@ class Authorization extends TransactionRequest
         $data = parent::getData();
         $auth = [
             'processorID'       => $this->getProcessorID(),
+            'referenceNum'      => $this->getReferenceNum(),
             'fraudCheck'        => $this->getFraudCheck(),
             'ipAddress'         => $this->getIpAddress(),
-            'referenceNum'      => $this->getReferenceNum(),
+            'customerIdExt'     => $this->getCustomerIdExt(),
             'transactionDetail' => [
                 'payType' => $this->getPayTypeData()
             ],
@@ -79,9 +80,9 @@ class Authorization extends TransactionRequest
                 $this->validate('expirationDate', 'number');
                 return [
                     'boleto' => [
-                        'expirationDate' => $this->getBoletoExpirationDate(),
-                        'number'         => $this->getBoletoNumber(),
-                        'instructions'   => $this->getBoletoInstructions()
+                        'expirationDate' => $this->getExpirationDate(),
+                        'number'         => $this->getNumber(),
+                        'instructions'   => $this->getInstructions()
                     ]
                 ];
                 break;
