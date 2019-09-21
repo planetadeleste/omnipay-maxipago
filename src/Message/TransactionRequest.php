@@ -7,13 +7,13 @@ namespace Omnipay\MaxiPago\Message;
 class TransactionRequest extends AbstractRequest
 {
     // CREDIT CARD PROCESSORS
-    const PEOCESSOR_TEST_SIMULATOR = 1;
-    const PEOCESSOR_REDE = 2;
-    const PEOCESSOR_GETNET = 3;
-    const PEOCESSOR_CIELO = 4;
-    const PEOCESSOR_TEF = 5;
-    const PEOCESSOR_ELAVON = 6;
-    const PEOCESSOR_CHASE_PAYMENTECH = 8;
+    const PROCESSOR_TEST_SIMULATOR = 1;
+    const PROCESSOR_REDE = 2;
+    const PROCESSOR_GETNET = 3;
+    const PROCESSOR_CIELO = 4;
+    const PROCESSOR_TEF = 5;
+    const PROCESSOR_ELAVON = 6;
+    const PROCESSOR_CHASE_PAYMENTECH = 8;
 
     // BOLETO PROCESSORS
     const PROCESSOR_ITAU = 11;
